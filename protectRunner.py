@@ -8,6 +8,10 @@ def protect3DRunner(src, atlas):
 
     print(atlas, src)
     matrix = goicpAlign(src, atlas)
+    
+    # Here are some varius different settings for harder input scans. Feel free to change however you desire.
+    # matrix = goicpAlign(src, atlas,  mseUnscaled = .035, pruneAmount = 200, trimFraction = 0, dtSize = 200)
+    # matrix = goicpAlign(src, atlas,  mseUnscaled = .025, pruneAmount = 200, trimFraction = .1, dtSize = 300)
 
     # This is what the new file will be called.
     # Ex. ankle.stl -> ankle__reoriented.stl
