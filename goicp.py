@@ -10,6 +10,7 @@ import time
 
 
 # Run GoIcp on src and tgt, returns transform Matrix for source with mse less than threshold
+#   
 def goicpAlign(src, tgt, mseUnscaled = .04, pruneAmount = 200, trimFraction = .15, dtSize = 150):
 
     start_time = time.time()
