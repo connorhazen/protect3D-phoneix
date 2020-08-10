@@ -1,6 +1,8 @@
-from goicpTry import goicpTransform1
+from goicp import goicpAlign
 import argparse
 import vtk
+import numpy as np
+from applyMatrix import align
 
 from PyQt5.QtWidgets import QApplication
 from vtkmodules.qt.QVTKRenderWindowInteractor import QVTKRenderWindowInteractor
@@ -11,25 +13,30 @@ def main():
     atlas = "AnkleAtlasL.stl"
     src = get_program_parameters()
     print(atlas, src)
-    t, total = goicpTransform1(src, atlas)
+    matrix = goicpAlign(src, atlas)
 
     srcVtk = ReadPolyData(src)
     tgtVtk = ReadPolyData(atlas)
 
+    print( np.linalg.det(matrix))
+    # goicpTransform = vtk.vtkTransform()
+    # goicpTransform.SetMatrix(matrix.flatten())
+    # transformFilter = vtk.vtkTransformPolyDataFilter()
+    # transformFilter.SetInputData(srcVtk)
+    # transformFilter.SetTransform(goicpTransform)
+    # transformFilter.Update()
 
-    goicpTransform = vtk.vtkTransform()
-    goicpTransform.SetMatrix(total.flatten())
-    transformFilter = vtk.vtkTransformPolyDataFilter()
-    transformFilter.SetInputData(srcVtk)
-    transformFilter.SetTransform(goicpTransform)
-    transformFilter.Update()
 
+    srcName  = src.split(".")
+    saveName = srcName[0] + "_reoriented.stl"
+    align(src, saveName, matrix)
 
+    transVtk = ReadPolyData(saveName)
 
 
     srcActor = makeActor(srcVtk, "blue")
     tgtActor = makeActor(tgtVtk, "yellow")
-    transActor = makeActor(transformFilter.GetOutput(), "red")
+    transActor = makeActor(transVtk, "red")
     # transActor2 = makeActor(myicpVtk, "orange")
     # transActor3 = makeActor(myicpVtk2, "white")
 

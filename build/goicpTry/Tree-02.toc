@@ -1,0 +1,5 @@
+('/Users/connorhazen/.pyenv/versions/3.8.2/lib/python3.8/site-packages/py_goicp-0.0.4-py3.8-macosx-10.15-x86_64.egg',
+ None,
+ {'*.abi3.so', 'EGG-INFO', '*.pyc', '*.py', '*.so', '*.cpython-38-darwin.so'},
+ 'DATA',
+ [])
